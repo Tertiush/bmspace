@@ -1,6 +1,6 @@
 name: "BMS Pace"
 description: "Pace BMS Interface"
-version: "1.0.26"
+version: "1.0.27"
 slug: "bms_pace"
 url: "https://github.com/Tertiush/bmspace"
 init: false

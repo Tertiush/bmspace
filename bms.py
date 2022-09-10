@@ -22,7 +22,7 @@ config = {}
 
 with open(r'/data/options.json') as file:
     config = json.load(file)
-    print("Config: " + json.dmps(config))
+    print("Config: " + json.dumps(config))
 
 
 scan_interval = config['scan_interval']
