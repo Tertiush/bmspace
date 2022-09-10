@@ -73,7 +73,7 @@ def exit_handler():
     
     client.publish(config['mqtt_base_topic'] + "/availability","offline")
     return
-    
+
 
 def bms_connect(address, port):
 
@@ -376,7 +376,7 @@ while code_running == True:
         if mqtt_connected == True:
             get_bms_data(bms)
 
-            if (config['mqtt_ha_discovery'] == True) and print_initial:
+            if print_initial:
                 ha_discovery()
                 client.publish(config['mqtt_base_topic'] + "/availability","online")
 
