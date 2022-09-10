@@ -1,3 +1,5 @@
+#Todo: availability offline
+
 import paho.mqtt.client as mqtt
 import socket
 import time
@@ -14,9 +16,13 @@ print("Starting up...")
 
 config = {}
 
-with open(r'config.yaml') as file:
-    config = yaml.load(file, Loader=yaml.FullLoader)['options']
-    #print(config)
+# with open(r'config.yaml') as file:
+#     config = yaml.load(file, Loader=yaml.FullLoader)['options']
+
+
+with open(r'/data/options.json') as file:
+    config = json.load(file)
+    print("Config: " + config)
 
 
 scan_interval = config['scan_interval']
