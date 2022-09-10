@@ -1,4 +1,4 @@
-# BMS Pace
+# BMS Pace - Home Assistant Add-on
 Pace Battery Management System
 
 Important: This addon comes with absolutely no guarantees whatsoever. Use at own risk.
