@@ -7,6 +7,8 @@ import json
 import serial
 import io
 import json
+import atexit
+
 
 print("Starting up...")
 
@@ -67,6 +69,11 @@ client.connect(config['mqtt_host'], config['mqtt_port'], 60)
 client.loop_start()
 time.sleep(2)
 
+def exit_handler():
+    
+    client.publish(config['mqtt_base_topic'] + "/availability","offline")
+    return
+    
 
 def bms_connect(address, port):
 
@@ -360,6 +367,8 @@ def ha_discovery():
         client.publish(config['mqtt_ha_discovery_topic']+"/sensor/BMS-" + bms_sn + "/" + disc_payload['name'] + "/config",json.dumps(disc_payload),qos=0, retain=True)
     else:
         print("HA Discovery Disabled")
+
+atexit.register(exit_handler)
 
 while code_running == True:
 
