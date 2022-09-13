@@ -186,6 +186,8 @@ def get_bms_data(comms):
     global print_initial
     global cells
     global temps
+    v_cell = []
+    t_cell = []
 
     message = b"\x7e\x32\x35\x30\x31\x34\x36\x34\x32\x45\x30\x30\x32\x30\x31\x46\x44\x33\x30\x0d"
     if not bms_sendData(comms,message):
@@ -200,7 +202,6 @@ def get_bms_data(comms):
     
     for i in range(0,cells):
         v_cell.append(int(inc_data[19+i*4:23+i*4],16))
-        test = inc_data[19+i*4:23+i*4]
         client.publish(config['mqtt_base_topic'] + "/v_cells/cell_" + str(i+1) ,str(v_cell[i]))
         if print_initial:
             print("V Cell" + str(i+1) + ": " + str(v_cell[i]) + " mV")
