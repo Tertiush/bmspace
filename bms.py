@@ -10,19 +10,25 @@ import serial
 import io
 import json
 import atexit
+import sys
 
 
 print("Starting up...")
 
 config = {}
 
-# with open(r'config.yaml') as file:
-#     config = yaml.load(file, Loader=yaml.FullLoader)['options']
+if os.path.exists('config.yaml'):
+    print("Loading config.yaml")
+    with open(r'config.yaml') as file:
+        config = yaml.load(file, Loader=yaml.FullLoader)['options']
 
-
-with open(r'/data/options.json') as file:
-    config = json.load(file)
-    print("Config: " + json.dumps(config))
+elif os.path.exists('/data/options.json'):
+    print("Loading options.json")
+    with open(r'/data/options.json') as file:
+        config = json.load(file)
+        print("Config: " + json.dumps(config))
+else:
+    sys.exit("No config file found")  
 
 
 scan_interval = config['scan_interval']
@@ -56,6 +62,7 @@ print("Connection Type: " + connection_type)
 
 def on_connect(client, userdata, flags, rc):
     print("MQTT connected with result code "+str(rc))
+    client.will_set(config['mqtt_base_topic'] + "/availability","offline", qos=0, retain=False)
     global mqtt_connected
     mqtt_connected = True
 
@@ -76,7 +83,7 @@ client.loop_start()
 time.sleep(2)
 
 def exit_handler():
-    
+    print("Script exiting")
     client.publish(config['mqtt_base_topic'] + "/availability","offline")
     return
 
@@ -119,7 +126,7 @@ def bms_sendData(comms,request=''):
                 return True
         except IOError as e:
             print("BMS serial error: %s" % e)
-            global bms_connected
+            # global bms_connected
             return False
 
     else:
@@ -131,22 +138,25 @@ def bms_sendData(comms,request=''):
                 return True
         except Exception as e:
             print("BMS socket error: %s" % e)
-            global bms_connected
+            # global bms_connected
             return False
 
 def bms_get_data(comms,len):
-
-    if connection_type == "Serial":
-        inc_data = comms.readline()
-    else:
-        inc_data = comms.recv(1024)
-
-    return inc_data
-
+    try:
+        if connection_type == "Serial":
+            inc_data = comms.readline()
+        else:
+            inc_data = comms.recv(1024)
+        return inc_data
+    except Exception as e:
+        print("BMS socket receive error: %s" % e)
+        # global bms_connected
+        return False
 
 def get_bms_version(comms):
 
     global bms_version
+    global bms_connected
 
     message = b"\x7e\x32\x35\x30\x31\x34\x36\x43\x31\x30\x30\x30\x30\x46\x44\x39\x41\x0d"
     if not bms_sendData(bms,message):
@@ -156,6 +166,10 @@ def get_bms_version(comms):
     #inc_data = bms.recv(1024)
     inc_data = bms_get_data(bms,1024)
 
+    if inc_data == False:
+        bms_connected = False
+        return
+
     bms_version = bytes.fromhex(inc_data[13:53].decode("ascii")).decode("ASCII")
     client.publish(config['mqtt_base_topic'] + "/bms_version",bms_version)
     print("BMS Version: " + bms_version)
@@ -164,6 +178,7 @@ def get_bms_version(comms):
 def get_bms_sns(comms):
 
     global bms_sn
+    global bms_connected
 
     message = b"\x7e\x32\x35\x30\x31\x34\x36\x43\x32\x30\x30\x30\x30\x46\x44\x39\x39\x0d"
     if not bms_sendData(bms,message):
@@ -172,6 +187,10 @@ def get_bms_sns(comms):
 
     #inc_data = bms.recv(1024)
     inc_data = bms_get_data(bms,1024)
+
+    if inc_data == False:
+        bms_connected = False
+        return
 
     bms_sn = bytes.fromhex(inc_data[13:43].decode("ascii")).decode("ASCII")
     pack_sn = bytes.fromhex(inc_data[53:81].decode("ascii")).decode("ASCII")
@@ -186,6 +205,7 @@ def get_bms_data(comms):
     global print_initial
     global cells
     global temps
+    global bms_connected
     v_cell = []
     t_cell = []
 
@@ -195,6 +215,10 @@ def get_bms_data(comms):
         return
 
     inc_data = bms_get_data(bms,1024)
+
+    if inc_data == False:
+        bms_connected = False
+        return
 
     cells = int(inc_data[17:19],16)
     if print_initial:
@@ -401,6 +425,7 @@ while code_running == True:
         print("BMS disconnected, trying to reconnect...")
         bms,bms_connected = bms_connect(config['bms_ip'],config['bms_port'])
         client.publish(config['mqtt_base_topic'] + "/availability","offline")
+        time.sleep(5)
         print_initial = True
 
 client.loop_stop()
