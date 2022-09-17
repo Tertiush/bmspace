@@ -1,1 +1,1 @@
-1.0.29  - More error detection added
+1.0.30  - More error detection added
