@@ -211,6 +211,7 @@ def get_bms_data(comms):
     t_cell = []
 
     message = b"\x7e\x32\x35\x30\x31\x34\x36\x34\x32\x45\x30\x30\x32\x30\x31\x46\x44\x33\x30\x0d"
+    #message =  b"\x7e\x32\x35\x30\x32\x34\x36\x34\x32\x45\x30\x30\x32\x30\x32\x46\x44\x32\x45\x0d"
     if not bms_sendData(comms,message):
         bms_connected = False
         return
@@ -318,7 +319,9 @@ def ha_discovery():
 
     if ha_discovery_enabled:
         
-        print("Publishing HA Discovery topic...")
+        print("Publishing HA Discovery topic (in a 30 seconds)...")
+
+        time.sleep(30)
 
         disc_payload['availability_topic'] = config['mqtt_base_topic'] + "/availability"
 
