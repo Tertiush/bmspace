@@ -41,6 +41,7 @@ bms_connected = False
 mqtt_connected = False
 print_initial = True
 disc_payload = {}
+repub_discovery = 0
 
 bms_version = ''
 bms_sn = ''
@@ -319,9 +320,7 @@ def ha_discovery():
 
     if ha_discovery_enabled:
         
-        print("Publishing HA Discovery topic (in a 30 seconds)...")
-
-        time.sleep(30)
+        print("Publishing HA Discovery topic...")
 
         disc_payload['availability_topic'] = config['mqtt_base_topic'] + "/availability"
 
@@ -417,6 +416,11 @@ while code_running == True:
 
             print_initial = False
             time.sleep(scan_interval)
+
+            repub_discovery += 1
+            if repub_discovery*scan_interval > 600:
+                repub_discovery = 0
+                print_initial = True
         
         else: #MQTT not connected
             client.loop_stop()
