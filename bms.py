@@ -418,7 +418,7 @@ while code_running == True:
             time.sleep(scan_interval)
 
             repub_discovery += 1
-            if repub_discovery*scan_interval > 600:
+            if repub_discovery*scan_interval > 3600:
                 repub_discovery = 0
                 print_initial = True
         
