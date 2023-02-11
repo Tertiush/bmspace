@@ -1,3 +1,9 @@
-1.0.30 - More error detection added
+WARNING: Breaking Changes! As of version 2.0.0 each pack (battery) will be pre-fixed with its pack number. 
+Use at own risk!! 
+This is to support multiple packs. 
+Additional data is now being retrieved, including warning, balancing, status indications, etc. 
+This script excludes COMMANDS and should only retrieve data. Nonetheless the author accepts no reponsibility whatsoever of your use, in any way, of this script / addon. Again, USE AT OWN RISK!
 <br>
-1.0.32 - Reverted 1.0.31, added periodic republishing of HA discovery, as a restart of HA doesnt see the retained discovery topics
+2.0.0: Major rewrite using the official Pace RS232 Protocol Definition. Breaking Changes including prefixing most data with its Pack number (to support multiple batteries in parallel).
+<br>
+Known / possible issues: The overall Pack data collected under the root MQTT topic seems to follow the data of the first battery in the Pack.

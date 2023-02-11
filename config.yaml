@@ -1,6 +1,6 @@
 name: "BMS Pace"
 description: "Pace BMS Interface"
-version: "1.0.32"
+version: "2.0.0"
 slug: "bms_pace"
 url: "https://github.com/Tertiush/bmspace"
 init: false
@@ -16,7 +16,7 @@ options:
   mqtt_port: 1883
   mqtt_user: "mqtt-users"
   mqtt_password: "mqtt-users"
-  mqtt_ha_discovery: false
+  mqtt_ha_discovery: true
   mqtt_ha_discovery_topic: "homeassistant"
   mqtt_base_topic: "bmspace"
   connection_type: "IP"
@@ -24,6 +24,7 @@ options:
   bms_port: 5000
   bms_serial: "/dev/ttyUSB0"
   scan_interval: 5
+  debug_output: 0
 schema:
   mqtt_host: str
   mqtt_port: int
@@ -37,3 +38,4 @@ schema:
   bms_port: int
   bms_serial: str
   scan_interval: int
+  debug_output: int
