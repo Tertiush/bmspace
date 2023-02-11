@@ -1,4 +1,6 @@
 
+#ToDo: Ensure to always get the SN as it is used in HA discovery!
+
 import paho.mqtt.client as mqtt
 import socket
 import time
@@ -861,7 +863,7 @@ def bms_getPackCapacity(bms):
 
     except Exception as e:
         print("Error parsing BMS pack capacity data: ", str(e))
-        return False, "Error parsing BMS pack capacity data: ", str(e)
+        return False, "Error parsing BMS pack capacity data: " + str(e)
 
     return True,True
 
@@ -1028,7 +1030,7 @@ def bms_getWarnInfo(bms):
 
     except Exception as e:
         print("Error parsing BMS warning data: ", str(e))
-        return False, "Error parsing BMS warning data: ", str(e)
+        return False, "Error parsing BMS warning data: " + str(e)
 
     return True,True
 
