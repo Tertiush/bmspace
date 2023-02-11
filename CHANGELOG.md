@@ -9,7 +9,7 @@ Additional data is now being retrieved, including warning, balancing, status ind
 This script excludes COMMANDS and should only retrieve data. Nonetheless the author accepts no reponsibility whatsoever of your use, in any way, of this script / addon. Again, USE AT OWN RISK!
 <br>
 <br>
-2.0.0: Major rewrite using the official Pace RS232 Protocol Definition. Breaking Changes including prefixing most data with its Pack number (to support multiple batteries in parallel).
+2.0.0: Major rewrite using the official Pace RS232 Protocol Definition. Breaking changes including prefixing most data with its Pack number (to support multiple batteries in parallel). Temperatures values are now retrieved without names, in my case the first 4 values are cell temperatures, temp 5 the MOSFET, and temp 6 is ambient / environment.
 <br>
 <br>
 Known / possible issues: The overall Pack data collected under the root MQTT topic seems to follow the data of the first battery in the Pack.
