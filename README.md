@@ -1,5 +1,14 @@
 # BMS Pace - Home Assistant Add-on
 Pace Battery Management System
+Features:
+* Cell voltages
+* Temperatures
+* State of charge (SOC)
+* State of health (SOH)
+* Warnings & faults
+* State indications
+* Cell balancing state
+* and many more.....
 
 ## Important
 
