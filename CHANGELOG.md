@@ -13,4 +13,5 @@ This script excludes COMMANDS and should only retrieve data. Nonetheless the aut
 <br>
 2.0.1: Bug fix
 <br>
+<br>
 Known / possible issues: The overall Pack data collected under the root MQTT topic seems to follow the data of the first battery in the Pack.
