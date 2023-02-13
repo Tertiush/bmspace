@@ -1,6 +1,7 @@
-# BMS Pace - Home Assistant Add-on
+# BMS Pace - Python data retrieval
 Pace Battery Management System
 Features:
+* Compatible as a Home Assistant Add-on, see https://www.home-assistant.io/common-tasks/os#installing-third-party-add-ons
 * Cell voltages
 * Temperatures
 * State of charge (SOC)
@@ -15,6 +16,16 @@ Features:
 This addon comes with absolutely no guarantees whatsoever. Use at own risk.  
 Feel free to fork and expand!
 
+## Configuring
+### - Manually
+Install the pre-requisites as per requirements.txt. Then edit the config.yaml file to suit your needs and run the script bms.py
+NB: Test with Python 3.9
+
+### - Home Assistant
+All configuration options are available from within Home Assistant.
+
+### - Notes on configuration options
+debug_output: Options are 0 for minimal, 1 for minor errors such as checksums, 2-3 for more severe debug logs.
 
 ## RJ11 Interface
 
