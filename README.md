@@ -16,20 +16,25 @@ Features:
 This addon comes with absolutely no guarantees whatsoever. Use at own risk.  
 Feel free to fork and expand!
 
+## Confirmed working with
+* Hubble Lithium (AM2, AM4)
+* Revov R100
+* let me know if yours work
+
 ## Configuring
-### - Manually
+### --- Manually ---
 Install the pre-requisites as per requirements.txt. Then edit the config.yaml file to suit your needs and run the script bms.py
 NB: Test with Python 3.9
 
-### - Home Assistant
+### --- Home Assistant ---
 All configuration options are available from within Home Assistant.
 
-### - Notes on configuration options
+### --- Notes on configuration options ---
 debug_output: Options are 0 for minimal, 1 for minor errors such as checksums, 2-3 for more severe debug logs.
 
-## RJ11 Interface
+## RJ11 Interface (for Hubble AM2 and AM4)
 
-When viewed into the RJ11 socket, tab to the bottom, pins are (in my device) ordered:  
+When viewed into the RJ11 socket, tab to the bottom, pins are (in Hubble AM2 and AM4) ordered:  
 1:NC 2:GND 3:BMS_Tx 4:BMS_Rx 5:GND 6:NC
 
 Either a direct serial interface from your hardware, a USB to serial, or a network connected TCP server device will work. 
