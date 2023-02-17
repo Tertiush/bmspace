@@ -242,7 +242,7 @@ def ha_discovery():
             disc_payload['unit_of_measurement'] = "mAh"
             client.publish(config['mqtt_ha_discovery_topic']+"/sensor/BMS-" + bms_sn + "/" + disc_payload['name'].replace(' ', '_') + "/config",json.dumps(disc_payload),qos=0, retain=True)
 
-            disc_payload['name'] = "Pack " + str(p) + " Design_Capacity"
+            disc_payload['name'] = "Pack " + str(p) + " Design Capacity"
             disc_payload['unique_id'] = "bmspace_" + bms_sn + "_pack_" + str(p) + "_i_design_cap"
             disc_payload['state_topic'] = config['mqtt_base_topic'] + "/pack_" + str(p) + "/i_design_cap"
             disc_payload['unit_of_measurement'] = "mAh"
@@ -294,7 +294,7 @@ def ha_discovery():
             disc_payload['payload_off'] = "0"
             client.publish(config['mqtt_ha_discovery_topic']+"/binary_sensor/BMS-" + bms_sn + "/" + disc_payload['name'].replace(' ', '_') + "/config",json.dumps(disc_payload),qos=0, retain=True)
 
-            disc_payload['name'] = "Pack " + str(p) + " Protection_Charge_Current"
+            disc_payload['name'] = "Pack " + str(p) + " Protection Charge Current"
             disc_payload['unique_id'] = "bmspace_" + bms_sn + "_pack_" + str(p) + "_prot_charge_current"
             disc_payload['state_topic'] = config['mqtt_base_topic'] + "/pack_" + str(p) + "/prot_charge_current"
             disc_payload['payload_on'] = "1"
@@ -826,7 +826,7 @@ def bms_getPackCapacity(bms):
 
     byte_index = 0
 
-    success, inc_data = bms_request(bms,cid2=constants.cid2PackCapacity) # Seem to alway reply with pack 1 data, even with ADR= 0 or FF and INFO= '' or FF
+    success, inc_data = bms_request(bms,cid2=constants.cid2PackCapacity) # Seem to always reply with pack 1 data, even with ADR= 0 or FF and INFO= '' or FF
 
     if success == False:
         return(False,inc_data)
@@ -1048,7 +1048,8 @@ if success != True:
 time.sleep(0.1)
 success, bms_sn,pack_sn = bms_getSerial(bms)
 if success != True:
-    print("Error retrieving BMS and pack serial numbers")
+    print("Error retrieving BMS and pack serial numbers. This is required for HA Discovery. Exiting...")
+    quit()
 
 # time.sleep(0.1)
 # success, data = bms_getPackNumber(bms)

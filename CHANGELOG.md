@@ -14,4 +14,7 @@ This script excludes COMMANDS and should only retrieve data. Nonetheless the aut
 2.0.1: Bug fix
 <br>
 <br>
+2.0.2: Naming fixes. Possible fix for native and USB serial devices
+<br>
+<br>
 Known / possible issues: The overall Pack data collected under the root MQTT topic seems to follow the data of the first battery in the Pack.

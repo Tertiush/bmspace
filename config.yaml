@@ -1,6 +1,6 @@
 name: "BMS Pace"
 description: "Pace BMS Interface"
-version: "2.0.1"
+version: "2.0.2"
 slug: "bms_pace"
 url: "https://github.com/Tertiush/bmspace"
 init: false
@@ -10,6 +10,9 @@ arch:
   - armhf
   - armv7
   - i386
+
+uart: true
+usb: true
 
 options:
   mqtt_host: "10.0.0.132"
