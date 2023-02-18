@@ -725,7 +725,16 @@ def bms_getAnalogData(bms,batNumber):
 
         for p in range(1,packs+1):
 
+            if p > 1:
+                cells_prev = cells
+
             cells = int(inc_data[byte_index:byte_index+2],16)
+
+            if p > 1:
+                if cells != cells_prev:
+                    byte_index += 2
+                    cells = int(inc_data[byte_index:byte_index+2],16)
+
             if print_initial:
                 print("Pack " + str(p) + ", Total cells: " + str(cells))
             byte_index += 2
@@ -1050,6 +1059,9 @@ success, bms_sn,pack_sn = bms_getSerial(bms)
 if success != True:
     print("Error retrieving BMS and pack serial numbers. This is required for HA Discovery. Exiting...")
     quit()
+
+
+
 
 # time.sleep(0.1)
 # success, data = bms_getPackNumber(bms)
