@@ -734,6 +734,9 @@ def bms_getAnalogData(bms,batNumber):
                 if cells != cells_prev:
                     byte_index += 2
                     cells = int(inc_data[byte_index:byte_index+2],16)
+                    if cells != cells_prev:
+                        print("Error parsing BMS analog data: Cannot read multiple packs")
+                        return(False,"Error parsing BMS analog data: Cannot read multiple packs")
 
             if print_initial:
                 print("Pack " + str(p) + ", Total cells: " + str(cells))
@@ -995,10 +998,10 @@ def bms_getWarnInfo(bms):
                 warnings += ", "  
             byte_index += 2
 
-            balanceState1 = '{0:08b}'.format(int(inc_data[byte_index:byte_index+2],8))
+            balanceState1 = '{0:08b}'.format(int(inc_data[byte_index:byte_index+2],16))
             byte_index += 2
 
-            balanceState2 = '{0:08b}'.format(int(inc_data[byte_index:byte_index+2],8))
+            balanceState2 = '{0:08b}'.format(int(inc_data[byte_index:byte_index+2],16))
             byte_index += 2
 
             warnState1 = ord(bytes.fromhex(inc_data[byte_index:byte_index+2].decode('ascii')))

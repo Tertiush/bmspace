@@ -16,5 +16,7 @@ Bug fixs
 Naming fixes. Possible fix for native and USB serial devices
 <h2>v2.0.3</h2>
 Possible bugfix for larger banks reading incorrect analog data
+<h2>v2.0.4</h2>
+Balance data should be base 16, not 8.
 <h1>Known / possible issues</h1>
 The overall Pack data collected under the root MQTT topic seems to follow the data of the first battery in the Pack.
