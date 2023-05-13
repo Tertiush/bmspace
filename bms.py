@@ -1,5 +1,4 @@
 
-#ToDo: Ensure to always get the SN as it is used in HA discovery!
 
 import paho.mqtt.client as mqtt
 import socket
@@ -448,7 +447,7 @@ def bms_parse_data(inc_data):
     global debug_output
 
     #inc_data = b'~2501460070DC00020D100A0FF40FEA100E10040FF50FFD10010FFD0FE50FF5100A1001060BD20BD20BD40BD40BF80C1AFF7ECFCF258B02271001372710600D0FFA0FFC0FFB0FFC0FFE0FFB0FFA0FFA0FFB0FFD0FFC0FFB0FFB060BEF0BF10BEF0BED0BF70C04FDB1D02E29A9022AF80\r'
-
+    
     try:
         
         SOI = hex(ord(inc_data[0:1]))
@@ -730,6 +729,7 @@ def bms_getAnalogData(bms,batNumber):
 
             cells = int(inc_data[byte_index:byte_index+2],16)
 
+            #Possible remove this next test as were now testing for the INFOFLAG at the end
             if p > 1:
                 if cells != cells_prev:
                     byte_index += 2
@@ -825,6 +825,10 @@ def bms_getAnalogData(bms,batNumber):
 
             byte_index += 2
 
+            #Test for non signed value (matching cell count), to skip possible INFOFLAG present in data
+            if (byte_index < len(inc_data)) and (cells != int(inc_data[byte_index:byte_index+2],16)):
+                byte_index += 2
+
     except Exception as e:
         print("Error parsing BMS analog data: ", str(e))
         return(False,"Error parsing BMS analog data: " + str(e))
@@ -889,6 +893,8 @@ def bms_getWarnInfo(bms):
 
     if success == False:
         return(False,inc_data)
+
+    #inc_data = b'000210000000000000000000000000000000000600000000000000000000000E0000000000001110000000000000000000000000000000000600000000000000000000000E00000000000000'
 
     try:
 
@@ -1040,6 +1046,10 @@ def bms_getWarnInfo(bms):
 
             warnings = ""
 
+            #Test for non signed value (matching cell count), to skip possible INFOFLAG present in data
+            if (byte_index < len(inc_data)) and (cellsW != int(inc_data[byte_index:byte_index+2],16)):
+                byte_index += 2
+
     except Exception as e:
         print("Error parsing BMS warning data: ", str(e))
         return False, "Error parsing BMS warning data: " + str(e)
@@ -1064,8 +1074,7 @@ if success != True:
     quit()
 
 
-
-
+# Not used anymore
 # time.sleep(0.1)
 # success, data = bms_getPackNumber(bms)
 # if success == True:
