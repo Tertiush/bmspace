@@ -9,7 +9,12 @@ Additional data is now being retrieved, including warning, balancing, status ind
 This script excludes COMMANDS and should only retrieve data. Nonetheless the author accepts no reponsibility whatsoever of your use, in any way, of this script / addon. Again, USE AT OWN RISK!
 <br>
 <h1>Changelog</h1>
-<h2>v2.1</h2>
+<h2>v2.2.0</h2>
+Added a calculated cell maximum voltage difference (highest cell voltage - smallest cell voltage)
+Rewrite Dockerfile to cache library dependencies to speed up future builds. (thanks jpmeijers)
+Add docker-compose.yaml to run using docker compose, with auto restarting. (thanks jpmeijers)
+Bugfix - Removing any spaces in the serial numbers to prevent HA unique identifiers having spaces
+<h2>v2.1.0</h2>
 Fix for multiple packs not parsed correctly in some instances. 
 Abbreviated some warning info to help prevent exceeding HAs character limits
 <h2>v2.0.4</h2>

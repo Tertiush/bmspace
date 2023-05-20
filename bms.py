@@ -349,6 +349,11 @@ def ha_discovery():
             disc_payload['payload_off'] = "0"
             client.publish(config['mqtt_ha_discovery_topic']+"/binary_sensor/BMS-" + bms_sn + "/" + disc_payload['name'].replace(' ', '_') + "/config",json.dumps(disc_payload),qos=0, retain=True)
 
+            disc_payload['name'] = "Pack " + str(p) + " Cell Max Volt Diff"
+            disc_payload['unique_id'] = "bmspace_" + bms_sn + "_pack_" + str(p) + "_cells_max_diff_calc"
+            disc_payload['state_topic'] = config['mqtt_base_topic'] + "/pack_" + str(p) + "/cells_max_diff_calc"
+            disc_payload['unit_of_measurement'] = "mV"
+            client.publish(config['mqtt_ha_discovery_topic']+"/sensor/BMS-" + bms_sn + "/" + disc_payload['name'].replace(' ', '_') + "/config",json.dumps(disc_payload),qos=0, retain=True)
 
             # Pack data
             disc_payload.pop('payload_on')
@@ -742,13 +747,32 @@ def bms_getAnalogData(bms,batNumber):
                 print("Pack " + str(p) + ", Total cells: " + str(cells))
             byte_index += 2
             
+            cell_min_volt = 0
+            cell_max_volt = 0
+
             for i in range(0,cells):
                 v_cell[(p-1,i)] = int(inc_data[byte_index:byte_index+4],16)
                 byte_index += 4
                 client.publish(config['mqtt_base_topic'] + "/pack_" + str(p) + "/v_cells/cell_" + str(i+1) ,str(v_cell[(p-1,i)]))
                 if print_initial:
                     print("Pack " + str(p) +", V Cell" + str(i+1) + ": " + str(v_cell[(p-1,i)]) + " mV")
-                
+
+                #Calculate cell max and min volt
+                if i == 0:
+                    cell_min_volt = v_cell[(p-1,i)]
+                    cell_max_volt = v_cell[(p-1,i)]
+                else:
+                    if v_cell[(p-1,i)] < cell_min_volt:
+                        cell_min_volt = v_cell[(p-1,i)]
+                    if v_cell[(p-1,i)] > cell_max_volt:
+                        cell_max_volt = v_cell[(p-1,i)]
+           
+            #Calculate cells max diff volt
+            cell_max_diff_volt = cell_max_volt - cell_min_volt
+            client.publish(config['mqtt_base_topic'] + "/pack_" + str(p) + "/cells_max_diff_calc" ,str(cell_max_diff_volt))
+            if print_initial:
+                print("Pack " + str(p) +", Cell Max Diff Volt Calc: " + str(cell_max_diff_volt) + " mV")
+
             temps = int(inc_data[byte_index:byte_index + 2],16)
             if print_initial:
                 print("Pack " + str(p) + ", Total temperature sensors: " + str(temps))
@@ -1069,6 +1093,8 @@ if success != True:
 
 time.sleep(0.1)
 success, bms_sn,pack_sn = bms_getSerial(bms)
+bms_sn.replace(" ", "") #Remove spaces to prevent the unique ID having spaces
+pack_sn.replace(" ", "")
 if success != True:
     print("Error retrieving BMS and pack serial numbers. This is required for HA Discovery. Exiting...")
     quit()
