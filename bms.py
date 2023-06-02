@@ -681,8 +681,8 @@ def bms_getSerial(comms):
 
     try:
 
-        bms_sn = bytes.fromhex(INFO[0:30].decode("ascii")).decode("ASCII")
-        pack_sn = bytes.fromhex(INFO[40:68].decode("ascii")).decode("ASCII")
+        bms_sn = bytes.fromhex(INFO[0:30].decode("ascii")).decode("ASCII").replace(" ", "")
+        pack_sn = bytes.fromhex(INFO[40:68].decode("ascii")).decode("ASCII").replace(" ", "")
         client.publish(config['mqtt_base_topic'] + "/bms_sn",bms_sn)
         client.publish(config['mqtt_base_topic'] + "/pack_sn",pack_sn)
         print("BMS Serial Number: " + bms_sn)
@@ -1092,9 +1092,7 @@ if success != True:
     print("Error retrieving BMS version number")
 
 time.sleep(0.1)
-success, bms_sn,pack_sn = bms_getSerial(bms)
-bms_sn.replace(" ", "") #Remove spaces to prevent the unique ID having spaces
-pack_sn.replace(" ", "")
+success, bms_sn, pack_sn = bms_getSerial(bms)
 if success != True:
     print("Error retrieving BMS and pack serial numbers. This is required for HA Discovery. Exiting...")
     quit()
