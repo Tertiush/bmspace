@@ -19,6 +19,8 @@ Feel free to fork and expand!
 ## Confirmed working with
 * Hubble Lithium (AM2, AM4)
 * Revov R100
+* Revov R9
+* SOK 48V (100Ah)
 * let me know if yours work
 
 ## Configuring
