@@ -21,6 +21,7 @@ Feel free to fork and expand!
 * Revov R100
 * Revov R9
 * SOK 48V (100Ah)
+* Greenrich U-P5000
 * let me know if yours work
 
 ## Configuring
