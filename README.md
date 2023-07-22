@@ -17,11 +17,12 @@ This addon comes with absolutely no guarantees whatsoever. Use at own risk.
 Feel free to fork and expand!
 
 ## Confirmed working with
+* Greenrich U-P5000
 * Hubble Lithium (AM2, AM4)
 * Revov R100
 * Revov R9
 * SOK 48V (100Ah)
-* Greenrich U-P5000
+* YouthPower Rack Module 48V 100AH 4U-5U Lifepo4
 * let me know if yours work
 
 ## Configuring
