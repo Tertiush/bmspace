@@ -140,7 +140,9 @@ def bms_get_data(comms):
         if connection_type == "Serial":
             inc_data = comms.readline()
         else:
-            temp = comms.recv(4096)
+            temp = bytes()
+            while len(temp) == 0 or temp[-1] != 13:
+                temp = temp + comms.recv(4096)
             temp2 = temp.split(b'\r')
             # Decide which one to take:
             for element in range(0,len(temp2)):
