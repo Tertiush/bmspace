@@ -1,0 +1,10 @@
+version: '3'
+services:
+  bmspace:
+    build: 
+      context: .
+    restart: unless-stopped
+    privileged: true
+    volumes:
+      - ./config.yaml:/workdir/config.yaml
+      - /dev:/dev
