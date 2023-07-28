@@ -2,7 +2,7 @@ name: "BMS Pace - Development"
 description: "Pace BMS Interface"
 version: "dev"
 slug: "bms_pace_dev"
-url: "https://github.com/Tertiush/bmspace"
+url: "https://github.com/Tertiush/bmspace/pace-bms-dev"
 init: false
 arch:
   - aarch64
