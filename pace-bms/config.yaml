@@ -2,7 +2,7 @@ name: "BMS Pace"
 description: "Pace BMS Interface"
 version: "2.2.0"
 slug: "bms_pace"
-url: "https://github.com/Tertiush/bmspace"
+url: "https://github.com/Tertiush/bmspace/pace-bms"
 init: false
 arch:
   - aarch64
