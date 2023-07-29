@@ -19,9 +19,9 @@ options:
   mqtt_port: 1883
   mqtt_user: "mqtt-users"
   mqtt_password: "mqtt-users"
-  mqtt_ha_discovery: false
+  mqtt_ha_discovery: true
   mqtt_ha_discovery_topic: "homeassistant"
-  mqtt_base_topic: "bmspace2"
+  mqtt_base_topic: "bmspace"
   connection_type: "IP"
   bms_ip: "10.0.0.161"
   bms_port: 5000
