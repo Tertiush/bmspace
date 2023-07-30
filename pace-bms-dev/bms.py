@@ -715,11 +715,12 @@ def bms_getAnalogData(bms,batNumber):
     soh = []
 
     battery = bytes(format(batNumber, '02X'), 'ASCII')
-    # print("Get analog info for battery: ", battery)
 
     success, inc_data = bms_request(bms,cid2=constants.cid2PackAnalogData,info=battery)
 
     #bms_request -> bms_get_data(inc_data/INFO = bms_parse_data)
+
+    #inc_data = b'0002100D1F0D250D240D240D220D280D250D250D2A0D210D250D280D270D220D230D20060C100C060C0C0C030C340C5B1AFBD24442A7036D60008D6D60100D210D1E0D210D200D360D210D220D210D340D230D2F0D230D280D250D2D0D1C060BFC0BF30BFD0BF30C1D0C0519C5D259336B096D5A00046D60'
 
     if success == False:
         return(False,inc_data)
@@ -854,11 +855,16 @@ def bms_getAnalogData(bms,batNumber):
             if print_initial:
                 print("Pack " + str(p) + ", SOH: " + str(soh[p-1]) + " %")
 
-            byte_index += 2
+            #byte_index += 2
 
             #Test for non signed value (matching cell count), to skip possible INFOFLAG present in data
-            if (byte_index < len(inc_data)) and (cells != int(inc_data[byte_index:byte_index+2],16)):
-                byte_index += 2
+            if p < packs: #Test - Is there more packs to read?
+                while (byte_index < len(inc_data)) and (cells != int(inc_data[byte_index:byte_index+2],16)):
+                    byte_index += 2
+                    if byte_index > len(inc_data):
+                        print("Error parsing BMS analog data: Cannot read multiple packs")
+                        return(False,"Error parsing BMS analog data: Cannot read multiple packs")
+
 
     except Exception as e:
         print("Error parsing BMS analog data: ", str(e))
@@ -926,6 +932,7 @@ def bms_getWarnInfo(bms):
         return(False,inc_data)
 
     #inc_data = b'000210000000000000000000000000000000000600000000000000000000000E0000000000001110000000000000000000000000000000000600000000000000000000000E00000000000000'
+    
 
     try:
 
