@@ -28,7 +28,7 @@ Feel free to fork and expand!
 ## Configuring
 ### --- Manually ---
 Install the pre-requisites as per requirements.txt. Then edit the config.yaml file to suit your needs and run the script bms.py
-NB: Test with Python 3.9
+NB: Tested with Python 3.9
 
 ### --- Home Assistant ---
 All configuration options are available from within Home Assistant.
@@ -36,9 +36,9 @@ All configuration options are available from within Home Assistant.
 ### --- Notes on configuration options ---
 debug_output: Options are 0 for minimal, 1 for minor errors such as checksums, 2-3 for more severe debug logs.
 
-## RJ11 Interface (for Hubble AM2 and AM4)
+## RJ11 Interface (Typical, confirm your own model!)
 
-When viewed into the RJ11 socket, tab to the bottom, pins are (in Hubble AM2 and AM4) ordered:  
+When viewed into the RJ11 socket, tab to the bottom, pins are ordered:  
 1:NC 2:GND 3:BMS_Tx 4:BMS_Rx 5:GND 6:NC
 
 Either a direct serial interface from your hardware, a USB to serial, or a network connected TCP server device will work. 
