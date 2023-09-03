@@ -16,6 +16,7 @@ import constants
 print("Starting up...")
 
 config = {}
+script_version = ""
 
 if os.path.exists('/data/options.json'):
     print("Loading options.json")
@@ -23,9 +24,9 @@ if os.path.exists('/data/options.json'):
         config = json.load(file)
         print("Config: " + json.dumps(config))
 
-elif os.path.exists('config.yaml'):
+elif os.path.exists('pace-bms-dev\\config.yaml'):
     print("Loading config.yaml")
-    with open(r'config.yaml') as file:
+    with open(r'pace-bms-dev\\config.yaml') as file:
         config = yaml.load(file, Loader=yaml.FullLoader)['options']
         
 else:
@@ -720,7 +721,10 @@ def bms_getAnalogData(bms,batNumber):
 
     #bms_request -> bms_get_data(inc_data/INFO = bms_parse_data)
 
+    #prefix: ~250146006118
     #inc_data = b'0002100D1F0D250D240D240D220D280D250D250D2A0D210D250D280D270D220D230D20060C100C060C0C0C030C340C5B1AFBD24442A7036D60008D6D60100D210D1E0D210D200D360D210D220D210D340D230D2F0D230D280D250D2D0D1C060BFC0BF30BFD0BF30C1D0C0519C5D259336B096D5A00046D60'
+
+    #inc_data = b'0002100DAA0DA40DA70DAB0DA30D9A0DA40DA20DA50DA40DA60DAE0DA20DA70DA80DA8060B720B740B790B780B8B0B7F0000DA5926F90227100008271064271027102710271064100DA60DAA0DAA0DAB0DA80DA70DAA0DA80DA80D9E0DA90DAA0DA60DA60DA70DA3060B5C0B670B660B670B7A0B6D0000DA7526F90227100007271064271027102710271000C03D\r'
 
     if success == False:
         return(False,inc_data)
@@ -856,6 +860,8 @@ def bms_getAnalogData(bms,batNumber):
                 print("Pack " + str(p) + ", SOH: " + str(soh[p-1]) + " %")
 
             #byte_index += 2
+
+            byte_index += int(config['force_pack_offset'])
 
             #Test for non signed value (matching cell count), to skip possible INFOFLAG present in data
             if p < packs: #Test - Is there more packs to read?
