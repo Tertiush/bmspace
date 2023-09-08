@@ -19,11 +19,11 @@ Feel free to fork and expand!
 ## 2. Confirmed working with
 Many brands using the PACE BMS, including:
 * Greenrich U-P5000
-* Hubble Lithium (AM2, AM4)
-* Revov R100
-* Revov R9
+* Hubble Lithium (AM2, AM4, X-101)
+* Revov R100, R9
 * SOK 48V (100Ah)
 * YouthPower Rack Module 48V 100AH 4U-5U Lifepo4
+* Allith 10kW LifePo4
 * etc.......
 
 If your ports look something like this, its likely a PACE BMS:
