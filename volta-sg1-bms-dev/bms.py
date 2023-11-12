@@ -1107,16 +1107,19 @@ bms,bms_connected = bms_connect(config['bms_ip'],config['bms_port'])
 client.publish(config['mqtt_base_topic'] + "/availability","offline")
 print_initial = True
 
-success, data = bms_getVersion(bms)
-if success != True:
-    print("Error retrieving BMS version number")
+# success, data = bms_getVersion(bms)
+# if success != True:
+#     print("Error retrieving BMS version number")
 
-time.sleep(0.1)
-success, bms_sn,pack_sn = bms_getSerial(bms)
+# time.sleep(0.1)
+# success, bms_sn,pack_sn = bms_getSerial(bms)
 
-if success != True:
-    print("Error retrieving BMS and pack serial numbers. This is required for HA Discovery. Exiting...")
-    quit()
+bms_sn = "version_21"
+pack_sn = "pack_sn_xxx"
+
+# if success != True:
+#     print("Error retrieving BMS and pack serial numbers. This is required for HA Discovery. Exiting...")
+#     quit()
 
 
 while code_running == True:
