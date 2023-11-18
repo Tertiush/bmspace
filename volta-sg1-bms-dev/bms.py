@@ -265,7 +265,7 @@ def ha_discovery():
             client.publish(config['mqtt_ha_discovery_topic']+"/sensor/BMS-" + bms_sn + "/" + disc_payload['name'].replace(' ', '_') + "/config",json.dumps(disc_payload),qos=0, retain=True)
 
 
-            # disc_payload.pop('unit_of_measurement')
+            disc_payload.pop('unit_of_measurement')
 
             # disc_payload['name'] = "Pack " + str(p) + " Warnings"
             # disc_payload['unique_id'] = "bmspace_" + bms_sn + "_pack_" + str(p) + "_warnings"
@@ -354,11 +354,11 @@ def ha_discovery():
             # disc_payload['payload_off'] = "0"
             # client.publish(config['mqtt_ha_discovery_topic']+"/binary_sensor/BMS-" + bms_sn + "/" + disc_payload['name'].replace(' ', '_') + "/config",json.dumps(disc_payload),qos=0, retain=True)
 
-            # disc_payload['name'] = "Pack " + str(p) + " Cell Max Volt Diff"
-            # disc_payload['unique_id'] = "bmspace_" + bms_sn + "_pack_" + str(p) + "_cells_max_diff_calc"
-            # disc_payload['state_topic'] = config['mqtt_base_topic'] + "/pack_" + str(p) + "/cells_max_diff_calc"
-            # disc_payload['unit_of_measurement'] = "mV"
-            # client.publish(config['mqtt_ha_discovery_topic']+"/sensor/BMS-" + bms_sn + "/" + disc_payload['name'].replace(' ', '_') + "/config",json.dumps(disc_payload),qos=0, retain=True)
+            disc_payload['name'] = "Pack " + str(p) + " Cell Max Volt Diff"
+            disc_payload['unique_id'] = "bmspace_" + bms_sn + "_pack_" + str(p) + "_cells_max_diff_calc"
+            disc_payload['state_topic'] = config['mqtt_base_topic'] + "/pack_" + str(p) + "/cells_max_diff_calc"
+            disc_payload['unit_of_measurement'] = "mV"
+            client.publish(config['mqtt_ha_discovery_topic']+"/sensor/BMS-" + bms_sn + "/" + disc_payload['name'].replace(' ', '_') + "/config",json.dumps(disc_payload),qos=0, retain=True)
 
             # # Pack data
             # disc_payload.pop('payload_on')
