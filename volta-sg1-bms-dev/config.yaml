@@ -1,6 +1,6 @@
 name: "BMS Volta V2.1 - Development"
 description: "Volta V2.1 BMS Interface"
-version: "2.2.4dev"
+version: "2.2.5dev"
 slug: "bms_volta_dev"
 url: "https://github.com/Tertiush/bmspace/volta-sg1-bms-dev"
 init: false
