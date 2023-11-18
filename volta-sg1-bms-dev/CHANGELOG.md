@@ -2,10 +2,6 @@
 <br>
 Use at own risk!! 
 <br>
-This is to support multiple packs. 
-<br>
-Additional data is now being retrieved, including warning, balancing, status indications, etc. 
-<br>
 This script excludes COMMANDS and should only retrieve data. Nonetheless the author accepts no reponsibility whatsoever of your use, in any way, of this script / addon. Again, USE AT OWN RISK!
 <br>
 <h1>Changelog</h1>
