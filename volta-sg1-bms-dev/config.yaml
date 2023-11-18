@@ -2,7 +2,7 @@ name: "BMS Volta V2.1 - Development"
 description: "Volta V2.1 BMS Interface"
 version: "2.2.4dev"
 slug: "bms_volta_dev"
-url: "https://github.com/Tertiush/bmspace/pace-bms-dev"
+url: "https://github.com/Tertiush/bmspace/volta-sg1-bms-dev"
 init: false
 arch:
   - aarch64
@@ -28,6 +28,7 @@ options:
   bms_serial: "/dev/ttyUSB0"
   scan_interval: 5
   debug_output: 0
+  packs_to_read: 1
   force_pack_offset: 0
 schema:
   mqtt_host: str
@@ -43,4 +44,5 @@ schema:
   bms_serial: str
   scan_interval: int
   debug_output: int
+  packs_to_read: int
   force_pack_offset: "int?"
