@@ -1,6 +1,6 @@
 name: "BMS Pace - Development"
 description: "Pace BMS Interface"
-version: "2.2.3dev"
+version: "2.3dev"
 slug: "bms_pace_dev"
 url: "https://github.com/Tertiush/bmspace/pace-bms-dev"
 init: false
@@ -29,6 +29,8 @@ options:
   scan_interval: 5
   debug_output: 0
   force_pack_offset: 0
+  zero_pad_number_cells: 0
+  zero_pad_number_packs: 0
 schema:
   mqtt_host: str
   mqtt_port: int
@@ -44,3 +46,5 @@ schema:
   scan_interval: int
   debug_output: int
   force_pack_offset: "int?"
+  zero_pad_number_cells: "int?"
+  zero_pad_number_packs: "int?"

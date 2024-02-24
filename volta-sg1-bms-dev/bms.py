@@ -719,17 +719,12 @@ def bms_getAnalogData(bms,adr,batNumber):
     success, inc_data = bms_request(bms,adr,cid2=constants.cid2PackAnalogData,info=battery)
 
     #bms_request -> bms_get_data(inc_data/INFO = bms_parse_data)
-
+    
     if success == False:
         return(False,inc_data)
 
     try:
 
-        # Read one pack at a time, therefore remove this section:
-        # packs = int(inc_data[byte_index:byte_index+2],16)
-        # if print_initial:
-        #     print("Packs: " + str(packs))
-        # byte_index += 2
         byte_index = 2
 
         v_cell = {}
@@ -739,15 +734,6 @@ def bms_getAnalogData(bms,adr,batNumber):
             cells_prev = cells
 
         cells = int(inc_data[byte_index:byte_index+2],16)
-
-        #Possible remove this next test as were now testing for the INFOFLAG at the end
-        # if p > 1:
-        #     if cells != cells_prev:
-        #         byte_index += 2
-        #         cells = int(inc_data[byte_index:byte_index+2],16)
-        #         if cells != cells_prev:
-        #             print("Error parsing BMS analog data: Cannot read multiple packs")
-        #             return(False,"Error parsing BMS analog data: Cannot read multiple packs")
 
         if print_initial:
             print("Pack " + str(p) + ", Total cells: " + str(cells))
@@ -854,18 +840,6 @@ def bms_getAnalogData(bms,adr,batNumber):
         client.publish(config['mqtt_base_topic'] + "/pack_" + str(p) + "/soh",str(soh[p-1]))
         if print_initial:
             print("Pack " + str(p) + ", SOH: " + str(soh[p-1]) + " %")
-
-        #byte_index += 2
-
-        # byte_index += int(config['force_pack_offset'])
-
-        #Test for non signed value (matching cell count), to skip possible INFOFLAG present in data
-        # if p < packs: #Test - Is there more packs to read?
-        #     while (byte_index < len(inc_data)) and (cells != int(inc_data[byte_index:byte_index+2],16)):
-        #         byte_index += 2
-        #         if byte_index > len(inc_data):
-        #             print("Error parsing BMS analog data: Cannot read multiple packs")
-        #             return(False,"Error parsing BMS analog data: Cannot read multiple packs")
 
 
     except Exception as e:

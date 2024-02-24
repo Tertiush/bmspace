@@ -10,10 +10,11 @@ This script excludes COMMANDS and should only retrieve data. Nonetheless the aut
 <br>
 <h1>Changelog</h1>
 <h2>Development Version:</h2>
-Work in progress fix for retrieving full length messages
 
-Forced client id to bmspace
+2.3dev - Added optional zero(0) padding for pack and cell values, to help maintain ordering. If used your history will be spread across the old and new names!
 
-Added force_pack_offset to seperate pack data with unexpected bytes between them
+Added nested exception catches that might help the script not fail if a pack is missing.
+
+
 <h1>Known / possible issues</h1>
 The overall Pack data collected under the root MQTT topic seems to follow the data of the first battery in the Pack.
