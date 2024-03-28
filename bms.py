@@ -66,7 +66,7 @@ def on_disconnect(client, userdata, rc):
     mqtt_connected = False
 
 
-client = mqtt.Client()
+client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1)
 client.on_connect = on_connect
 client.on_disconnect = on_disconnect
 #client.on_message = on_message
