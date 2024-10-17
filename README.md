@@ -1,4 +1,5 @@
 # BMS Pace - Python data retrieval
+## NB: This script(s) is no longer actively being developed. Feel free to fork.
 Pace Battery Management System
 Features:
 * Compatible as a Home Assistant Add-on, see https://www.home-assistant.io/common-tasks/os#installing-third-party-add-ons
